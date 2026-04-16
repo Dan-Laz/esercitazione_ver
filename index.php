@@ -7,6 +7,41 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Biblioteca</h1>
+    <h2>books</h2>
+    <p><?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+
+                try {
+                $conn = new PDO("mysql:host=$servername;dbname=lazzaroni_biblioteca", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                } catch(PDOException $e) {
+                die("Could not connect. " . $e->getMessage());
+                }
+
+                try {
+                $sql = "SELECT * FROM libri;";
+                $result = $conn->query($sql);
+                $libri = $result->fetchAll();
+
+                foreach ($libri as $libro) {
+                    echo "Titolo: " . $libro['titolo'] . ", Anno di pubblicazione: " . $libro['anno_pubblicazione'] . ", ISBN: " . $libro['isbn'] . "<br>";
+                }
+
+
+
+                } catch(PDOException $e) {
+                // Handle errors during query execution
+                echo "Error executing query: " . $sql . "<br>" . $e->getMessage();
+                }
+
+                // Close connection
+                $conn = null;
+            ?></p>
+
     <form action="add_book.php" method="post">
         <label>aggiungi libro</label>
         <input type="text" name="titolo" placeholder="titolo" required>
