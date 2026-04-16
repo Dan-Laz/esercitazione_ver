@@ -83,5 +83,86 @@
         </select>
         <input type="submit" value="aggiungi">
     </form>
+
+    <form action="add_loan.php" method="post">
+        <label>aggiungi prestito</label>
+
+        <select name="libro" required>
+            <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+
+                try {
+                $conn = new PDO("mysql:host=$servername;dbname=lazzaroni_biblioteca", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                } catch(PDOException $e) {
+                die("Could not connect. " . $e->getMessage());
+                }
+
+                try {
+                $sql = "SELECT id_libro, titolo FROM libri;";
+                $result = $conn->query($sql);
+                $libri = $result->fetchAll();
+
+                foreach ($libri as $libro) {
+                    echo "<option value='" . $libro['id_libro'] . "'>" . $libro['titolo'] . "</option>";
+                }
+
+
+
+                } catch(PDOException $e) {
+                // Handle errors during query execution
+                echo "Error executing query: " . $sql . "<br>" . $e->getMessage();
+                }
+
+                // Close connection
+                $conn = null;
+            ?>
+        </select>
+
+        <select name="utente" required>
+            <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+
+                try {
+                $conn = new PDO("mysql:host=$servername;dbname=lazzaroni_biblioteca", $username, $password);
+                // set the PDO error mode to exception
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                } catch(PDOException $e) {
+                die("Could not connect. " . $e->getMessage());
+                }
+
+                try {
+                $sql = "SELECT id_utente, nome, cognome FROM utenti;";
+                $result = $conn->query($sql);
+                $utenti = $result->fetchAll();
+
+                foreach ($utenti as $utente) {
+                    echo "<option value='" . $utente['id_utente'] . "'>" . $utente['nome'] . " " . $utente['cognome'] . "</option>";
+                }
+
+
+
+                } catch(PDOException $e) {
+                // Handle errors during query execution
+                echo "Error executing query: " . $sql . "<br>" . $e->getMessage();
+                }
+
+                // Close connection
+                $conn = null;
+            ?>
+        </select>
+
+        <input type="date" name="data_fine_prevista" required>
+
+        <input type="submit" value="aggiungi">
+
+    </form>
+
+
 </body>
 </html>
