@@ -1,7 +1,7 @@
 <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $id_libro = $_POST['id_libro'];
-        $id_utente = $_POST['id_utente'];
+        $id_libro = $_POST['libro'];
+        $id_utente = $_POST['utente'];
         $data_inizio = $_POST['data_inizio'];
         $data_fine_prevista = $_POST['data_fine_prevista'];
 
